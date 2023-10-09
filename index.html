@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STL App</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #renderCanvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+    #sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100%;
+      background-color: #f0f0f0;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      border-left: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2>Properties</h2>
+            <strong>Name:</strong> <span id="name"></span>
+        <ul>
+            <li><strong>Position:</strong> <span id="position"></span></li>
+            <li><strong>Rotation:</strong> <span id="rotation"></span></li>
+            <li><strong>Color:</strong> <span id="color"></span></li>
+        </ul>
+        <h2>Move Object</h2>
+        <button onclick="moveObject('q')">Q</button>
+        <button onclick="moveObject('a')">A</button>
+        <button onclick="moveObject('w')">W</button>
+        <button onclick="moveObject('s')">S</button>
+        <button onclick="moveObject('e')">E</button>
+        <button onclick="moveObject('d')">D</button>
+        <br>
+        <button id="downloadJsonButton">Descargar JSON</button>
+    </div>
+  <canvas id="renderCanvas"></canvas>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+  <script>
+    var canvas = document.getElementById("renderCanvas");
+    var engine = new BABYLON.Engine(canvas, true);
+    var scene = new BABYLON.Scene(engine);
+    var camera = new BABYLON.ArcRotateCamera("camera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
+    camera.attachControl(canvas, true);
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    var jsonParts = [{
+      "name": "excavator",
+      "models": "https://raw.githubusercontent.com/ravendano014/Tourbillon/main/",
+      "parts": [
+        { 
+        "mesh_id": "ukaq",    
+        "mesh_name":"1-stl-dipan.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "akaq",
+        "mesh_name":"1-stl-drive-gear.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "bkaq",
+        "mesh_name":"1-stl-fram-lower.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "ykaq",
+        "mesh_name":"1-stl-fram-uper.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "zkaq",
+        "mesh_name":"1-stl-frame-middle.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]    
+        },{
+        "mesh_id": "ckaq",
+        "mesh_name":"1-stl-gai-1.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "dkaq",
+        "mesh_name":"1-stl-gai-5.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "ekaq",
+        "mesh_name":"1-stl-gear-11-1.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "fkaq",
+        "mesh_name":"1-stl-gear-13.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "gkaq",
+        "mesh_name":"1-stl-gear-all.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "hkaq",
+        "mesh_name":"1-stl-gearholder-5.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "ikaq",
+        "mesh_name":"1-stl-guanchi-11-1.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "jkaq",
+        "mesh_name":"1-stl-guanchi-vertical.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "kkaq",
+        "mesh_name":"1-stl-pallets-6.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "lkaq",
+        "mesh_name":"1-stl-roller-6.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "mkaq",
+        "mesh_name":"1-stl-shaft-11.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "nkaq",
+        "mesh_name":"1-stl-shim-0-8.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "okaq",
+        "mesh_name":"1-stl-sleeve-lower.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "pkaq",
+        "mesh_name":"1-stl-spring-cage-r.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "qkaq",
+        "mesh_name":"1-stl-spring-holder-lower.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "rkaq",
+        "mesh_name":"1-stl-spring-holder-uper.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "skaq",
+        "mesh_name":"1-stl-stop-e.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "tkaq",
+        "mesh_name":"1-stl-wheel-11.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "vkaq",
+        "mesh_name":"1-stl-wheel-gear-allpart.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        },{
+        "mesh_id": "wkaq",
+        "mesh_name":"1-stl-wheel-gear-holder.stl",
+        "position": [{ "x": 0, "y": 0, "z": 0}],
+        "rotation": [{ "x": 0, "y": 0, "z": 0}]
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    ]
+}];
+
+   const localAxes = new BABYLON.AxesViewer(scene, 1);
+
+    // Variable para el objeto 3D seleccionado
+    var selectedMesh = null;
+
+    scene.onKeyboardObservable.add((kbInfo) => {
+        switch (kbInfo.type) {
+            case BABYLON.KeyboardEventTypes.KEYDOWN:
+                console.log("KEY DOWN: ", kbInfo.event.key);
+            break;
+            case BABYLON.KeyboardEventTypes.KEYUP:
+                console.log("KEY UP: ", kbInfo.event.code);
+            break;
+        }
+    });
+
+    let parts = [];
+    
+    function createMeshFromPart(part) {
+      var mesh = new BABYLON.Mesh(part.mesh_id, scene);
+      var meshURL = jsonParts[0].models + part.mesh_name;
+
+      BABYLON.SceneLoader.ImportMesh("", meshURL, "", scene, function (newMeshes) {
+        mesh = newMeshes[0];
+      });
+      console.log(part);
+
+      mesh.position = new BABYLON.Vector3(part.position[0].x, part.position[0].y, part.position[0].z);
+      mesh.rotation = new BABYLON.Vector3(BABYLON.Tools.ToRadians(part.rotation[0].x), BABYLON.Tools.ToRadians(part.rotation[0].y), BABYLON.Tools.ToRadians(part.rotation[0].z));
+      mesh.name = part.mesh_name;
+
+      mesh.isPickable = true;
+      mesh.actionManager = new BABYLON.ActionManager(scene);
+      
+      //parts.push(mesh);
+
+      return mesh;
+    }
+
+    for (var i = 0; i < jsonParts[0].parts.length; i++) {
+      createMeshFromPart(jsonParts[0].parts[i]);
+    }
+
+    engine.runRenderLoop(function () {
+      scene.render();
+    });
+
+    window.addEventListener("resize", function () {
+      engine.resize();
+    });
+
+    let pickedMesh = null;
+    scene.onPointerMove = function() {
+        var result = scene.pick(scene.pointerX, scene.pointerY);
+        if (result.pickedMesh !== pickedMesh) {            
+            if (pickedMesh) {
+                pickedMesh.disableEdgesRendering(); 
+            }
+
+            pickedMesh = result.pickedMesh;
+
+            console.log(scene);
+            //console.log(result);
+            
+            
+
+            for (var i = 0; i < jsonParts[0].parts.length; i++) {
+                scene.meshes[i+6+jsonParts[0].parts.length]._position._x = jsonParts[0].parts[i].position[0].x;
+                scene.meshes[i+6+jsonParts[0].parts.length]._position._y = jsonParts[0].parts[i].position[0].y;
+                scene.meshes[i+6+jsonParts[0].parts.length]._position._z = jsonParts[0].parts[i].position[0].z;
+                scene.meshes[i+6+jsonParts[0].parts.length]._rotation._x = jsonParts[0].parts[i].rotation[0].x;
+                scene.meshes[i+6+jsonParts[0].parts.length]._rotation._y = jsonParts[0].parts[i].rotation[0].y;
+                scene.meshes[i+6+jsonParts[0].parts.length]._rotation._z = jsonParts[0].parts[i].rotation[0].z;
+                uid = scene.meshes[i+6+jsonParts[0].parts.length].uniqueId;
+                redrawmesh = scene.getMeshByUniqueId(uid);
+                
+            }
+
+            if (pickedMesh) {
+                pickedMesh.edgesWidth = 40.0;
+                pickedMesh.edgesColor = new BABYLON.Color4(0, 1, 0.87);
+                pickedMesh.enableEdgesRendering();
+                selectedMesh = pickedMesh;
+                //console.log(pickedMesh);
+                 // Mostrar propiedades en la barra lateral
+                document.getElementById("name").textContent = pickedMesh.uniqueId;
+                document.getElementById("position").textContent = `X: ${pickedMesh.position.x.toFixed(2)}, Y: ${pickedMesh.position.y.toFixed(2)}, Z: ${pickedMesh.position.z.toFixed(2)}`;
+                document.getElementById("rotation").textContent = `X: ${BABYLON.Tools.ToDegrees(pickedMesh.rotation.x).toFixed(2)}°, Y: ${BABYLON.Tools.ToDegrees(pickedMesh.rotation.y).toFixed(2)}°, Z: ${BABYLON.Tools.ToDegrees(pickedMesh.rotation.z).toFixed(2)}°`;
+                document.getElementById("color").textContent = `Color: ${pickedMesh.material ? pickedMesh.material.diffuseColor.toString() : "N/A"}`;
+
+                window.addEventListener("keydown", function (event) {
+                var speed = 0.01;
+                switch (event.key) {
+                    case "q":
+                    pickedMesh.position.x += speed;
+                    break;
+                    case "a":
+                    pickedMesh.position.x -= speed;
+                    break;
+                    case "w":
+                    pickedMesh.position.y += speed;
+                    break;
+                    case "s":
+                    pickedMesh.position.y -= speed;
+                    break;
+                    case "e":
+                    pickedMesh.position.z += speed;
+                    break;
+                    case "d":
+                    pickedMesh.position.z -= speed;
+                    break;
+                    case "r":
+                    pickedMesh.rotation.x += BABYLON.Tools.ToRadians(speed);
+                    break;
+                    case "f":
+                    pickedMesh.rotation.x -= BABYLON.Tools.ToRadians(speed);
+                    break;
+                    case "t":
+                    pickedMesh.rotation.y += BABYLON.Tools.ToRadians(speed);
+                    break;
+                    case "g":
+                    pickedMesh.rotation.y -= BABYLON.Tools.ToRadians(speed);
+                    break;
+                    case "y":
+                    pickedMesh.rotation.z += BABYLON.Tools.ToRadians(speed);
+                    break;
+                    case "h":
+                    pickedMesh.rotation.z -= BABYLON.Tools.ToRadians(speed);
+                    break;
+                }
+
+                });
+            
+            }
+        }
+    };
+
+
+
+
+
+// Función para recopilar la información actualizada de las partes y descargar el JSON
+function downloadJson() {
+  //console.log(parts);
+  const updatedParts = scene.meshes.map((part) => {
+    const mesh = scene.getMeshByID(part.uniqueId);
+    // console.log(mesh);
+    // console.log(part);
+    return {
+      uid: part.uniqueId,
+      mesh_id: part.id,
+      mesh_name: part.name,
+      position: {
+        x: part._position._x,
+        y: part._position._y,
+        z: part._position._z,
+      },
+      rotation: {
+        x: BABYLON.Tools.ToDegrees(part._rotation._x),
+        y: BABYLON.Tools.ToDegrees(part._rotation._y),
+        z: BABYLON.Tools.ToDegrees(part._rotation._z),
+      },
+    };
+  });
+
+  // Actualiza jsonParts
+  for (var i = 0; i < jsonParts[0].parts.length; i++) {
+    // console.log(jsonParts[0].parts[i].position.x);
+
+    jsonParts[0].parts[i].position[0].x =  updatedParts[i+6+jsonParts[0].parts.length].position.x;
+    jsonParts[0].parts[i].position[0].y =  updatedParts[i+6+jsonParts[0].parts.length].position.y;
+    jsonParts[0].parts[i].position[0].z =  updatedParts[i+6+jsonParts[0].parts.length].position.z;
+    jsonParts[0].parts[i].rotation[0].x =  updatedParts[i+6+jsonParts[0].parts.length].rotation.x;
+    jsonParts[0].parts[i].rotation[0].y =  updatedParts[i+6+jsonParts[0].parts.length].rotation.y;
+    jsonParts[0].parts[i].rotation[0].z =  updatedParts[i+6+jsonParts[0].parts.length].rotation.z;
+    //console.log(jsonParts[0].parts[i]);
+    parts.push(jsonParts[0].parts[i]);
+   }
+
+  //console.log(updatedParts);
+  const jsonContent = JSON.stringify(jsonParts, null, 2);
+  const blob = new Blob([jsonContent], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  // Crear un enlace para la descarga
+  const downloadLink = document.createElement("a");
+  downloadLink.href = url;
+  downloadLink.download = "excavator.json";
+  downloadLink.click();
+
+  // Liberar la URL del objeto Blob
+  URL.revokeObjectURL(url);
+}
+
+// Asigna la función downloadJson al botón de descarga
+document.getElementById("downloadJsonButton").addEventListener("click", downloadJson);
+
+
+  </script>
+</body>
+</html>
