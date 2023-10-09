@@ -238,8 +238,9 @@
     ]
 }];
 
-        const localAxes = new BABYLON.AxesViewer(scene, 1);
-        
+       const localAxes = new BABYLON.AxesViewer(scene, 1);
+
+
         // Cargar y posicionar cada parte del modelo 3D "spot"
         function loadAndPositionPart(part) {
             var meshURL = jsonParts[0].models;
@@ -381,7 +382,7 @@ function downloadJson() {
   // Crear un enlace para la descarga
   const downloadLink = document.createElement("a");
   downloadLink.href = url;
-  downloadLink.download = "spot.json";
+  downloadLink.download = "model.json";
   downloadLink.click();
 
   // Liberar la URL del objeto Blob
@@ -391,6 +392,23 @@ function downloadJson() {
 // Asigna la función downloadJson al botón de descarga
 document.getElementById("downloadJsonButton").addEventListener("click", downloadJson);
 
+document.addEventListener("keydown", function (event) {
+    if (event.key === "z") {
+        // Llama a la función changeColor() al presionar la tecla "Z"
+        changeColor();
+    }
+});
+
+function changeColor() {
+    const colorPicker = document.getElementById("colorPicker");
+    const selectedColor = colorPicker.value;
+
+    if (pickedMesh) {
+        // Cambiar el color del material de la parte seleccionada
+        pickedMesh.material = new BABYLON.StandardMaterial("material", scene);
+        pickedMesh.material.diffuseColor = new BABYLON.Color3.FromHexString(selectedColor);
+    }
+}
 
     </script>
 </body>
